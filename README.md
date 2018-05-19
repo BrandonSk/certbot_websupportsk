@@ -57,9 +57,8 @@ You can use root's cron to renew.
 Add line (once a day is more than enough): `certbot renew >> /dev/null`
 
 ## Caviats and other information
-1. Scripts work if you have only 1 zone registered under your name. If you have more, the https calls need to be modified by first obtaining the zone id and then using the zone id to create/erase the txt records. I might add this in future, but not at this moment.
-2. Scripts tested and work under debian stretch with certbot 0.25.0.dev0 installed from git source.
-3. Using special characters in webssuport's username/password might not work - I have not tested this yet. You may have to specify the username/password in escaped format (or modify the scripts and publish them here).
-4. Using docker image (certbot/certbot) should give you the best way to use the most up-to-date certbot client. You can use volume mappings to save certificates to wherever you want.
-5. It is possible to define post-hook scripts, which will restart/reload your software config to use updated certificate.
-6. I'm not a programmer, so feel free to make the above scripts better ;)
+1. Scripts tested and work under debian stretch with certbot 0.25.0.dev0 installed from git source.
+2. Using special characters in webssuport's username/password might not work - I have not tested this yet. You may have to specify the username/password in escaped format (or modify the scripts and publish them here).
+3. Using docker image (certbot/certbot) should give you the best way to use the most up-to-date certbot client. You can use volume mappings to save certificates to wherever you want.
+4. It is possible to define post-hook scripts, which will restart/reload your software config to use updated certificate.
+5. I'm not a programmer, so feel free to make the above scripts better ;)
