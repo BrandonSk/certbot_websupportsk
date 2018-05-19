@@ -14,6 +14,7 @@ Created by Branislav Susila, May 2018.
 2. edit the ws_secrets file: First line -> your websupport login name; Second line -> your websupport password
 3. change permissions of ws_secrets to 400 or 600 and make sure its owned by root
 4. make the two hookup scripts executable
+*Alternative to the steps 2 & 3 is to store username and password directly in both of the scripts in variables (not recommended)
 
 ## Usage
 This guide does not cover certbot options - study certbot documentation for variety of modes how to use it.
