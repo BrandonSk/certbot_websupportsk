@@ -7,7 +7,7 @@ Created by Branislav Susila, May 2018.
 * Linux system with bash (tested on Debian, should work on other systems too)
 * certbot supporting wildcard certificates (ideally the latest version)
 > careful, certbot in repositories might be too old, in that case download from github
-* OR use docker!
+* OR use docker! *(note: docker requires an image with curl installed)*
 
 ## Installation
 1. download hookup scripts and the secrets file and place all 3 files into a directory of your choosing
