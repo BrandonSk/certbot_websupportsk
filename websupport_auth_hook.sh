@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # (C) 2018 Branislav Susila
 
 # SPECIFY LOGIN DETAILS BELOW:
@@ -13,6 +13,11 @@ WS_PW=""
 WS_USER=$(dirname "$(readlink -f "$0")") && WS_USER="${WS_USER}/ws_secrets"
 
 # FUNCTIONS
+_assign_secrets() {
+        [ ${i} -eq 1 ] && WS_USER="${1}"
+        [ ${i} -eq 2 ] && WS_PW="${1}"
+}
+
 _process_secrets_file() {
         [ ! $(stat -c %u "${1}") -eq 0 ] && echo "Secrets file must be owned by root!" && exit 2
         [ ! $(stat -c %a "${1}") -eq 600 ] && [ ! $(stat -c %a "${1}") -eq 400 ] \
@@ -20,8 +25,8 @@ _process_secrets_file() {
         i=1
         while IFS='' read -r line || [[ -n "$line" ]]; do
                 [ ${i} -gt 2 ] && break
-                a[$i]="$line"
-                (( i ++ ))
+                _assign_secrets "$line"
+                i=$((i+1))
         done < "${1}"
         WS_USER="${a[1]}"
         WS_PW="${a[2]}"
@@ -30,9 +35,7 @@ _process_secrets_file() {
 }
 
 # >>>>>>> Main script starts here <<<<<<<<
-
 [ -f "${WS_USER}" ] && _process_secrets_file "${WS_USER}"
-
 SLEEP_TIME=15		# Time to sleep to allow propagation of DNS records
 ACMC="_acme-challenge"	# TXT record prefix
 
