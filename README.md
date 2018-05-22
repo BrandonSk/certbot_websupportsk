@@ -59,6 +59,7 @@ You can use root's cron to renew.
 Add line (once a day is more than enough): `certbot renew >> /dev/null`
 
 ## Docker example
+```
 docker run \
 	--rm \
 	-v /home/foobar/letsencrypt/:/etc/letsencrypt \
@@ -76,7 +77,7 @@ docker run \
   --manual-cleanup-hook /scripts/websupport_cleanup_hook.sh \
   -d example.com \
   -d *.example.com
-
+```
 ## Caviats and other information
 1. Scripts tested and work under debian stretch with certbot 0.25.0.dev0 installed from git source.
 2. Using special characters in webssuport's username/password might not work - I have not tested this yet. You may have to specify the username/password in escaped format (or modify the scripts and publish them here).
