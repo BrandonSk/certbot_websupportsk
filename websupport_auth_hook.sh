@@ -23,15 +23,11 @@ _process_secrets_file() {
         [ ! $(stat -c %a "${1}") -eq 600 ] && [ ! $(stat -c %a "${1}") -eq 400 ] \
                 && echo "Secrets file not secure enough!" && exit 2
         i=1
-        while IFS='' read -r line || [[ -n "$line" ]]; do
+        while IFS='' read -r line || [ -n "$line" ]; do
                 [ ${i} -gt 2 ] && break
                 _assign_secrets "$line"
                 i=$((i+1))
         done < "${1}"
-        WS_USER="${a[1]}"
-        WS_PW="${a[2]}"
-        unset a[1]
-        unset a[2]
 }
 
 # >>>>>>> Main script starts here <<<<<<<<
