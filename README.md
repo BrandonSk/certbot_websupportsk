@@ -1,3 +1,6 @@
+Update - November 2019
+v2.0 released
+
 # certbot_websupportsk
 Hook-up scripts (provider WebSupport.sk) for certbot manual mode with DNS challenge for generating wildcard certificates.
 Scripts should be POSIX compliant according to shellcheck.net
