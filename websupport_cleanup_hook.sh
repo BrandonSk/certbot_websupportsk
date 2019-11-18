@@ -4,7 +4,7 @@
 # SPECIFY LOGIN DETAILS BELOW:
 # Option 1 - store login in these scripts by populating WS_USER and WS_PW variables
 # Option 2 - store login details in a file (owned by root and permission 400 or 600): 1st line- name; 2nd- password
-# 		and specify path into WS_USER variable
+#               and specify path into WS_USER variable
 
 # Option 1
 WS_USER=""
@@ -32,11 +32,11 @@ _process_secrets_file() {
 # >>>>>>> Main script starts here <<<<<<<<
 [ -f "${WS_USER}" ] && _process_secrets_file "${WS_USER}"
 ACMC="_acme-challenge"
+PYTH_ERASE_SCRIPT="/scripts/erase_dns_record.py"
 
 # Parse the json output to get record ID
-ID=$(echo "${CERTBOT_AUTH_OUTPUT}" | grep -o '"id": *[0-9]*,' | grep -o '[^:]*$')
-ID="${ID%,}"
+#ID=$(echo "${CERTBOT_AUTH_OUTPUT}" | grep -o '"id": *[0-9]*,' | grep -o '[^:]*$')
+#ID="${ID%,}"
+ID="${CERTBOT_AUTH_OUTPUT}"
 
-#Erase record:
-curl --silent "https://rest.websupport.sk/v1/user/self/zone/${CERTBOT_DOMAIN}/record/${ID}" \
-  -X DELETE -u ${WS_USER}:${WS_PW} 2>&1
+python3 "${PYTH_CREATE_SCRIPT}" "${WS_USER}" "${WS_PW}" "${CERTBOT_DOMAIN}" "${ID}"
