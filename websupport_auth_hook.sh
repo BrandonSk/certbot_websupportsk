@@ -17,7 +17,6 @@ _assign_secrets() {
         [ ${i} -eq 1 ] && WS_USER="${1}"
         [ ${i} -eq 2 ] && WS_PW="${1}"
 }
-
 _process_secrets_file() {
         [ ! $(stat -c %u "${1}") -eq 0 ] && echo "Secrets file must be owned by root!" && exit 2
         [ ! $(stat -c %a "${1}") -eq 600 ] && [ ! $(stat -c %a "${1}") -eq 400 ] \
@@ -32,13 +31,11 @@ _process_secrets_file() {
 
 # >>>>>>> Main script starts here <<<<<<<<
 [ -f "${WS_USER}" ] && _process_secrets_file "${WS_USER}"
-SLEEP_TIME=15		# Time to sleep to allow propagation of DNS records
-ACMC="_acme-challenge"	# TXT record prefix
+SLEEP_TIME=15           # Time to sleep to allow propagation of DNS records
+ACMC="_acme-challenge"  # TXT record prefix
+PYTH_CREATE_SCRIPT="/scripts/create_dns_record.py"
 
-#Create record (WARNING! DO NOT REDIRECT CURL TO ANYTHING -> IT WILL BREAK CLEANUP SCRIPT!):
-curl --silent "https://rest.websupport.sk/v1/user/self/zone/${CERTBOT_DOMAIN}/record" \
-	-H "Content-Type: application/json" \
-	-X POST -d "{\"type\":\"TXT\",\"name\":\"${ACMC}\",\"content\": \"${CERTBOT_VALIDATION}\",\"ttl\": 600}" \
-	-u ${WS_USER}:${WS_PW} 2>&1
+python3 "${PYTH_CREATE_SCRIPT}" "${WS_USER}" "${WS_PW}" "${CERTBOT_DOMAIN}" "${ACMC}" "${CERTBOT_VALIDATION}" 2>&1
 
 sleep ${SLEEP_TIME}
+
