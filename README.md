@@ -1,3 +1,8 @@
+Update - October 2021
+I switched from certbot to dehydrated.sh script
+This hook should still work for certbot, but will no longer be maintained.
+Dehydrated hooks can be found in this repository: https://github.com/BrandonSk/dehydrated-hooks-for-websupport.sk
+
 Update - November 2019
 v2.0 released
 
